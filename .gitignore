@@ -1,0 +1,26 @@
+# Node.js & React
+node_modules/
+dist/
+build/
+.env
+package-lock.json
+
+# Python/Django/Flask
+__pycache__/
+venv/
+*.pyc
+*.pyo
+*.env
+
+# Android
+*.apk
+*.aab
+
+# iOS
+Pods/
+*.xcworkspace
+
+# General
+.DS_Store
+.idea/
+.vscode/
