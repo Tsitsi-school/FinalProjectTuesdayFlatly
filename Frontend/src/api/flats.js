@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-import { API_BASE_URL } from '../constants';
-const  API_FLATS_BASE_URL = API_BASE_URL + "/flats"; // Change this to match backend URL
+const API_BASE_URL = "http://localhost:8080/api/flats"; // Change this to match backend URL
 
 
 export const getFlats = async () => {
   try {
-    const response = await axios.get(`${API_FLATS_BASE_URL}`);
+    const response = await axios.get(`${API_BASE_URL}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching flats:', error);
@@ -17,7 +16,7 @@ export const getFlats = async () => {
 
 export const getFlatDetails = async (id) => {
     try {
-      const response = await axios.get(`${API_FLATS_BASE_URL}/${id}`);
+      const response = await axios.get(`${API_BASE_URL}/${id}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching flat details:', error);
@@ -29,7 +28,7 @@ export const getFlatDetails = async (id) => {
 export const deleteFlatImage = async (flatId, imageUrl) => {
   try {
     // Pass the imageUrl as a query parameter (encode it for safety)
-    const response = await axios.delete(`${API_FLATS_BASE_URL}/${flatId}/images`, {
+    const response = await axios.delete(`${API_BASE_URL}/${flatId}/images`, {
       params: { imageUrl: imageUrl }
     });
     return response.data;
@@ -53,7 +52,7 @@ export const addFlat = async (flatData, files) => {
       }
     }
 
-    const response = await axios.post(`${API_FLATS_BASE_URL}`, formData, {
+    const response = await axios.post(`${API_BASE_URL}`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
@@ -76,7 +75,7 @@ export const updateFlat = async (id, flatData, files = []) => {
       }
     }
 
-    const response = await axios.put(`${API_FLATS_BASE_URL}/${id}`, formData, {
+    const response = await axios.put(`${API_BASE_URL}/${id}`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
@@ -90,7 +89,7 @@ export const updateFlat = async (id, flatData, files = []) => {
 
 export const deleteFlat = async (id) => {
   try {
-    await axios.delete(`${API_FLATS_BASE_URL}/${id}`);
+    await axios.delete(`${API_BASE_URL}/${id}`);
   } catch (error) {
     console.error('Error fetching flats:', error);
   }
@@ -98,7 +97,7 @@ export const deleteFlat = async (id) => {
 
 export const uploadFlatImage = async (flatId, formData) => {
   try {
-    await axios.post(`${API_FLATS_BASE_URL}/${flatId}/upload-image`, formData, {
+    await axios.post(`${API_BASE_URL}/${flatId}/upload-image`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
   } catch (error) {
@@ -108,14 +107,14 @@ export const uploadFlatImage = async (flatId, formData) => {
 };
 
 export const getFlatImages = async (flatId) => {
-  const response = await axios.get(`${API_FLATS_BASE_URL}/${flatId}/images`);
+  const response = await axios.get(`${API_BASE_URL}/${flatId}/images`);
   return response.data;
 };
 
 
 export const filterFlats = async (filters) => {
   try {
-      const response = await axios.get(`${API_FLATS_BASE_URL}/filter`, { params: filters });
+      const response = await axios.get(`${API_BASE_URL}/filter`, { params: filters });
       return response.data;
   } catch (error) {
       console.error("Error filtering flats:", error);
