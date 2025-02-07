@@ -1,6 +1,7 @@
 package com.flatly.controller;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -59,18 +60,25 @@ public class DashboardController {
                             booking.getUser().getFirstName() + " " + booking.getUser().getLastName() 
                             : "Unknown User";
 
-            String flatId = (booking.getFlat() != null) ? 
-                            "Flat: " + booking.getFlat().getName() 
+            String flatName = (booking.getFlat() != null) ? 
+                            booking.getFlat().getName() 
                             : "Unknown Flat";
 
-            activity.put("description", "User " + userName + " booked " + flatId);
+            // Retrieve images from the Flat object (assuming it's a List<String>)
+            List<String> images = (booking.getFlat() != null && booking.getFlat().getImages() != null) ? 
+                            booking.getFlat().getImages() 
+                            : Collections.singletonList("default.jpg"); // Placeholder image
+
+            activity.put("description", userName + " booked " + flatName);
             activity.put("timestamp", booking.getCreatedAt());
+            activity.put("images", images); // Include images in response
 
             return activity;
         }).collect(Collectors.toList());
 
         return ResponseEntity.ok(activities);
     }
+
 
 
     @GetMapping("/most-active-user")
